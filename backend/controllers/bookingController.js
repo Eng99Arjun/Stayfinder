@@ -15,9 +15,37 @@ const createBooking = async (req, res) => {
 
         // check for date conflicts
 
-        const existing
+        const existingBooking = Booking.findOne({
+            listing: listingId,
+            $or: [
+                { startDate: { $lte: endDate }, endDate: { $gte: startDate }}
+            ]
+        });
+
+        if(existingBooking){
+            return res.status(400).json({ message: 'Dates not available' });
+        }
+
+        // Calculatte price
+
+        const days = Math.ceil((new Date(endDate) - new Date(startDate)) / (1000 * 60* 60 *24));
+        const totalPrice = days * listing.price;
+
+        const booking = new Booking({
+            user: req.user._id,
+            listing: listingId,
+            startDate,
+            endDate,
+            totalPrice
+        });
+
+        const createdBooking = await booking.save();
+        res.status(201).json(createdBooking);
 
     } catch (error) {
-        
+        res.status(400).json({ message: 'Invalid booking data' })
     }
 }
+
+
+export default createBooking;
