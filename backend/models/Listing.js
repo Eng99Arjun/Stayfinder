@@ -21,6 +21,6 @@ const listingSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now  }
 })
 
-const Listing = mongoose.models.listing || mongoose.model('listing', listingSchema)
+const Listing = mongoose.models.Listing || mongoose.model('Listing', listingSchema)
 
 export default Listing;

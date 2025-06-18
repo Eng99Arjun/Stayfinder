@@ -1,6 +1,6 @@
 import Listing from "../models/Listing.js";
 
-const getListings = async (req, res) => {
+ export const getListings = async (req, res) => {
     try {
         const { location, minPrice, maxPrice} = req.query;
         let filters = {};
@@ -13,7 +13,7 @@ const getListings = async (req, res) => {
         if(minPrice || maxPrice){
             filters.price ={};
             if(minPrice) filters.price.$gte = minPrice;
-            if(maxPrice) filters.price.$gte = maxPrice;
+            if(maxPrice) filters.price.$lte = maxPrice;
         }
 
         const listings = await Listing.find(filters).populate('host', 'name');
@@ -27,7 +27,7 @@ const getListings = async (req, res) => {
     // @desc Get single listing
     // @route  GET /api/listing/:id
 
-    const getListingById = async (req, res) => {
+   export const getListingById = async (req, res) => {
         try {
             const listing = await Listing.findById(req.params.id).populate('host', 'name email');
 
@@ -44,7 +44,7 @@ const getListings = async (req, res) => {
     // @desc Create Listing 
     // @route POST /api/listings
 
-    const createListing = async (req, res) => {
+   export const createListing = async (req, res) => {
         try {
             const listing = new Listing({
                 ...req.body,
@@ -61,7 +61,7 @@ const getListings = async (req, res) => {
     // @desc Update listing
     // @route PUT /api/listings/:id
 
-    const updateListing = async (req, res) => {
+   export const updateListing = async (req, res) => {
         try {
              const listing = await Listing.findById(req.params.id);
 
@@ -76,16 +76,9 @@ const getListings = async (req, res) => {
 
              Object.assign(listing, req.body);
              const updatedListing = await listing.save();
-             res.json(updateListing);
+             res.json(updatedListing);
 
         } catch (error) {
             res.status(400).json({ message: 'Invalid listing data' })
         }
     }
-
-    module.exports = { 
-        getListings, 
-        getListingById, 
-        createListing, 
-        updateListing 
-    };

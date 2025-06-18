@@ -2,12 +2,12 @@
 import User from '../models/User.js'
 import jwt from 'jsonwebtoken';
 
-const registerUser = async(req, res) => {
+export const registerUser = async(req, res) => {
     const { name, email, password, isHost } = req.body;
 
     try {
-        const usereExists = await User.findOne({ email });
-        if(usereExists){
+        const userExists = await User.findOne({ email });
+        if(userExists){
             return res.status(400).json({
                 message: 'User already exists'
             });
@@ -31,7 +31,7 @@ const registerUser = async(req, res) => {
     }
 };
 
-const loginUser = async (req, res) => {
+export const loginUser = async (req, res) => {
     const {email, password} = req.body;
 
     try {
@@ -46,7 +46,7 @@ const loginUser = async (req, res) => {
                 token: generateToken(user._id)
             });
         } else {
-            res.json(401).json({
+            res.status(401).json({
                 message: 'Invalid Credentials'
             })
         }
@@ -64,4 +64,3 @@ const generateToken = (id) => {
     })
 };
 
-module.exports = { registerUser, loginUser};

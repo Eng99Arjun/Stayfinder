@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
  const bookingSchema = new mongoose.Schema({
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', requred: true },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     listing: { type : mongoose.Schema.Types.ObjectId, ref: 'Listing', required: true },
     startDate: { type: Date, required: true },
     endDate: { type: Date, required: true },
@@ -10,6 +10,6 @@ import mongoose from "mongoose";
     createdAt: {type: Date, default: Date.now }
  });
 
- const Booking = mongoose.models.booking || mongoose.model('booking', bookingSchema);
+ const Booking = mongoose.models.Booking || mongoose.model('Booking', bookingSchema);
 
  export default Booking

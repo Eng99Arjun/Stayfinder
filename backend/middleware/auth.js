@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
-import User from '../../../greencart/server/models/User.js';
-
-const protect = async (req, res, next) => {
+import User from '../models/User.js';
+export const protect = async (req, res, next) => {
     let token;
 
     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
@@ -31,7 +30,7 @@ const protect = async (req, res, next) => {
     }
 };
 
-const isHost = (req, res, next) => {
+export const isHost = (req, res, next) => {
     if(req.user && req.user.isHost){
         next();
     } else {
@@ -40,5 +39,3 @@ const isHost = (req, res, next) => {
         });
     }
 };
-
-module.exports = {protect, isHost}

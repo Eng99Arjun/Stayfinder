@@ -4,7 +4,7 @@ import Listing from '../models/Listing.js';
 // @desc Create new booking
 // @route POST /api/bookings
 
-const createBooking = async (req, res) => {
+export const createBooking = async (req, res) => {
     try {
         const { listingId, startDate, endDate } = req.body;
         const listing = await Listing.findById(listingId);
@@ -15,7 +15,7 @@ const createBooking = async (req, res) => {
 
         // check for date conflicts
 
-        const existingBooking = Booking.findOne({
+        const existingBooking = await Booking.findOne({
             listing: listingId,
             $or: [
                 { startDate: { $lte: endDate }, endDate: { $gte: startDate }}
@@ -48,4 +48,3 @@ const createBooking = async (req, res) => {
 }
 
 
-export default createBooking;
