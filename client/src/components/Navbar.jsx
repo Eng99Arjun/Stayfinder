@@ -29,7 +29,7 @@ const Navbar = () => {
 
                 {/* Logo */}
                 <a href="/" className="flex items-center gap-2">
-                    <img src={"https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/dummyLogo/dummyLogoWhite.svg"} alt="logo" className={`h-9 ${isScrolled && "invert opacity-80"}`} />
+                    <span className={`text-4xl ${isScrolled ? "text-primary": "text-white"}`}>StayFinder</span>
                 </a>
 
                 {/* Desktop Nav */}
@@ -37,7 +37,7 @@ const Navbar = () => {
                     {navLinks.map((link, i) => (
                         <a key={i} href={link.path} className={`group flex flex-col gap-0.5 ${isScrolled ? "text-primary" : "text-white"}`}>
                             {link.name}
-                            <div className={`${isScrolled ? "bg-gray-700" : "bg-white"} h-0.5 w-0 group-hover:w-full transition-all duration-300`} />
+                            <div className={`${isScrolled ? "bg-primary" : "bg-white"} h-0.5 w-0 group-hover:w-full transition-all duration-300`} />
                         </a>
                     ))}
                     <button className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${isScrolled ? 'text-primary' : 'text-white'} transition-all`}>
