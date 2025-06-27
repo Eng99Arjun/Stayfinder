@@ -3,6 +3,7 @@ import {Routes, Route, useLocation} from 'react-router-dom';
 import { useAppContext } from './context/AppContext.jsx';
 import Login from './components/Login';
 import { Toaster } from 'react-hot-toast';
+import Home from './pages/Home.jsx';
 
 
 
@@ -21,7 +22,7 @@ const App = () => {
       <Toaster/>
 
       <Routes>
-        <Route path= '/login' element={<Login/>} />
+        <Route path= '/' element={<Home/>} />
       </Routes>
     
     </div>
